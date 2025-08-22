@@ -1,0 +1,1739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhakti - AI Therapy & Mental Wellness</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --royal-purple: #1a0b2e;
+            --deep-blue: #0f0f23;
+            --accent-gold: #d4af37;
+            --accent-blue: #4f8ff7;
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8d1;
+            --gradient-orb: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1);
+            --success-green: #10b981;
+            --warning-amber: #f59e0b;
+            --error-red: #ef4444;
+            --glass-bg: rgba(255,255,255,0.08);
+            --glass-border: rgba(255,255,255,0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--deep-blue);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .royal-font { font-family: 'Playfair Display', serif; }
+
+        /* Enhanced Background */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(ellipse at center, var(--royal-purple) 0%, var(--deep-blue) 70%);
+        }
+
+        .floating-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(1px);
+            opacity: 0.6;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--gradient-orb);
+            top: 10%;
+            left: 70%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            top: 60%;
+            left: 10%;
+            animation-delay: 5s;
+        }
+
+        .orb-3 {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            top: 80%;
+            right: 20%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+            25% { transform: translate(30px, -30px) scale(1.05); opacity: 0.8; }
+            50% { transform: translate(-20px, 20px) scale(0.95); opacity: 0.4; }
+            75% { transform: translate(40px, 10px) scale(1.1); opacity: 0.7; }
+        }
+
+        /* Main Layout */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Improvements */
+        header {
+            padding: 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            margin: 16px 0;
+            padding: 24px 32px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav {
+            display: flex;
+            gap: 48px;
+        }
+
+        .nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .nav a:hover {
+            color: var(--text-primary);
+            background: var(--glass-bg);
+        }
+
+        /* Hero Section Refinements */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(56px, 8vw, 120px);
+            font-weight: 700;
+            line-height: 0.9;
+            margin-bottom: 32px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-gold) 50%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            animation: slideInTitle 1.2s ease-out 0.3s forwards;
+        }
+
+        .hero-subtitle {
+            font-size: 28px;
+            color: var(--text-secondary);
+            margin-bottom: 64px;
+            font-weight: 300;
+            letter-spacing: 0.01em;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideInSubtitle 1s ease-out 0.8s forwards;
+        }
+
+        .typewriter {
+            border-right: 3px solid var(--accent-gold);
+            padding-right: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blink-caret 1.2s infinite;
+            position: relative;
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+            padding: 4px 8px;
+            border-radius: 8px;
+        }
+
+        @keyframes slideInTitle {
+            0% { opacity: 0; transform: translateY(50px) scale(0.9); }
+            60% { opacity: 0.8; transform: translateY(-10px) scale(1.02); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes slideInSubtitle {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-right-color: transparent; }
+            50% { border-right-color: var(--accent-gold); }
+        }
+
+        /* Enhanced CTA Button */
+        .begin-button {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #f7d794 100%);
+            color: var(--deep-blue);
+            border: none;
+            padding: 24px 64px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.4);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0;
+            transform: translateY(40px) scale(0.9);
+            animation: slideInButton 1.2s ease-out 1.5s forwards;
+        }
+
+        @keyframes slideInButton {
+            0% { opacity: 0; transform: translateY(40px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .begin-button:hover {
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Therapy Interface Improvements */
+        .therapy-page {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .therapy-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .therapy-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 32px;
+            background: var(--glass-bg);
+            border-bottom: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .back-button {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            padding: 12px 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-button:hover {
+            color: var(--text-primary);
+            background: rgba(255,255,255,0.1);
+            transform: translateX(-2px);
+        }
+
+        .therapist-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--glass-bg);
+            padding: 12px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .ai-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--gradient-orb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            position: relative;
+            overflow: hidden;
+            animation: avatarPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes avatarPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(79, 143, 247, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(79, 143, 247, 0.6); }
+        }
+
+        .therapist-details h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .therapist-details p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 2px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--success-green);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success-green);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.4); }
+        }
+
+        /* Enhanced Chat Interface */
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: transparent;
+            overflow: hidden;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            scroll-behavior: smooth;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+        }
+
+        .message {
+            max-width: 75%;
+            animation: messageSlideIn 0.5s ease-out;
+            position: relative;
+        }
+
+        .message-ai { align-self: flex-start; }
+        .message-user { align-self: flex-end; }
+
+        .message-content {
+            padding: 18px 24px;
+            border-radius: 20px;
+            font-size: 16px;
+            line-height: 1.6;
+            position: relative;
+            backdrop-filter: blur(20px);
+            border: 1px solid transparent;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .message-ai .message-content {
+            background: linear-gradient(135deg, rgba(79, 143, 247, 0.15), rgba(79, 143, 247, 0.08));
+            border-color: rgba(79, 143, 247, 0.3);
+            border-radius: 20px 20px 20px 6px;
+        }
+
+        .message-user .message-content {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.1));
+            border-color: rgba(212, 175, 55, 0.4);
+            border-radius: 20px 20px 6px 20px;
+        }
+
+        @keyframes messageSlideIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .message-timestamp {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            opacity: 0.7;
+        }
+
+        /* Enhanced Typing Indicator */
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            max-width: 75%;
+            margin-bottom: 16px;
+        }
+
+        .typing-indicator .message-content {
+            background: linear-gradient(135deg, rgba(79, 143, 247, 0.1), rgba(79, 143, 247, 0.05));
+            border-color: rgba(79, 143, 247, 0.2);
+            border-radius: 20px 20px 20px 6px;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .typing-text {
+            color: var(--text-secondary);
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            animation: typingPulse 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingPulse {
+            0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+            40% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Enhanced Chat Input */
+        .chat-input {
+            padding: 24px 32px 32px;
+            background: var(--glass-bg);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 16px;
+            align-items: flex-end;
+            backdrop-filter: blur(20px);
+        }
+
+        .input-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .input-field {
+            width: 100%;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 16px 80px 16px 24px;
+            color: var(--text-primary);
+            font-size: 16px;
+            resize: none;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            max-height: 120px;
+            min-height: 56px;
+            line-height: 1.5;
+            backdrop-filter: blur(10px);
+        }
+
+        .input-field::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.8;
+        }
+
+        .input-field:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            background: rgba(255,255,255,0.12);
+        }
+
+        .input-actions {
+            position: absolute;
+            right: 8px;
+            bottom: 8px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .char-counter {
+            color: var(--text-secondary);
+            font-size: 11px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        .char-counter.visible { opacity: 1; }
+        .char-counter.warning { color: var(--warning-amber); }
+        .char-counter.error { color: var(--error-red); }
+
+        .send-button {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-gold), #f7d794);
+            border: none;
+            border-radius: 50%;
+            color: var(--deep-blue);
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+        }
+
+        .send-button:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .send-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            background: linear-gradient(135deg, #666, #888);
+        }
+
+        /* MCQ Styling */
+        .mcq-message {
+            background: linear-gradient(135deg, rgba(79, 143, 247, 0.1), rgba(79, 143, 247, 0.05)) !important;
+            border: 2px solid rgba(79, 143, 247, 0.3) !important;
+            border-radius: 16px !important;
+            padding: 20px !important;
+        }
+
+        .mcq-question {
+            margin-bottom: 16px;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .mcq-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 16px 0;
+        }
+
+        .mcq-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--text-primary);
+            width: 100%;
+        }
+
+        .mcq-option:hover {
+            background: rgba(79, 143, 247, 0.1);
+            border-color: rgba(79, 143, 247, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .mcq-option.selected {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.5);
+            color: var(--accent-gold);
+        }
+
+        .mcq-option:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .option-letter {
+            width: 24px;
+            height: 24px;
+            background: rgba(79, 143, 247, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .mcq-option.selected .option-letter {
+            background: var(--accent-gold);
+            color: var(--deep-blue);
+        }
+
+        .option-text {
+            flex: 1;
+            line-height: 1.4;
+        }
+
+        .mcq-instruction {
+            margin-top: 12px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-style: italic;
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        /* Mobile Responsive Improvements */
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            
+            header {
+                margin: 8px 0;
+                padding: 16px 20px;
+                border-radius: 12px;
+            }
+            
+            .nav { display: none; }
+            
+            .logo { font-size: 24px; }
+            
+            .hero {
+                min-height: 100vh;
+                padding: 20px 0;
+            }
+            
+            .hero h1 {
+                font-size: clamp(48px, 12vw, 72px);
+                margin-bottom: 24px;
+            }
+            
+            .hero-subtitle {
+                font-size: 20px;
+                margin-bottom: 48px;
+                height: 30px;
+            }
+            
+            .begin-button {
+                padding: 20px 48px;
+                font-size: 18px;
+            }
+            
+            .therapy-container {
+                padding: 0;
+                height: 100vh;
+            }
+            
+            .therapy-header {
+                padding: 16px 20px;
+            }
+            
+            .back-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            
+            .therapist-info {
+                padding: 10px 16px;
+            }
+            
+            .ai-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            
+            .chat-messages {
+                padding: 20px 16px;
+                gap: 16px;
+            }
+            
+            .message {
+                max-width: 85%;
+            }
+            
+            .message-content {
+                padding: 16px 20px;
+                font-size: 15px;
+                border-radius: 18px;
+            }
+            
+            .message-ai .message-content {
+                border-radius: 18px 18px 18px 4px;
+            }
+            
+            .message-user .message-content {
+                border-radius: 18px 18px 4px 18px;
+            }
+            
+            .chat-input {
+                padding: 16px 20px 24px;
+                gap: 12px;
+            }
+            
+            .input-field {
+                padding: 14px 70px 14px 20px;
+                border-radius: 20px;
+                font-size: 16px;
+                min-height: 48px;
+            }
+            
+            .send-button {
+                width: 44px;
+                height: 44px;
+                font-size: 16px;
+            }
+            
+            .orb-1 { width: 200px; height: 200px; top: 15%; left: 60%; }
+            .orb-2 { width: 120px; height: 120px; top: 65%; left: 15%; }
+            .orb-3 { width: 100px; height: 100px; top: 85%; right: 25%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="floating-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Landing Page -->
+    <div id="landingPage" class="landing-page">
+        <div class="container">
+            <header>
+                <div class="logo">Bhakti</div>
+                <nav class="nav">
+                    <a href="#about">About</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#privacy">Privacy</a>
+                    <a href="#support">Support</a>
+                </nav>
+            </header>
+
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="royal-font">Bhakti</h1>
+                    <p class="hero-subtitle">
+                        <span id="typewriter" class="typewriter">AI-Powered Mental Wellness</span>
+                    </p>
+                    <button class="begin-button royal-font" onclick="startTherapy()" aria-label="Start your therapy session">
+                        Start Your Journey
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Therapy Page -->
+    <div id="therapyPage" class="therapy-page">
+        <div class="therapy-container">
+            <div class="therapy-header">
+                <button class="back-button" onclick="goBack()" aria-label="Go back to home page">
+                    ← <span>Back to Home</span>
+                </button>
+                <div class="therapist-info">
+                    <div class="ai-avatar" aria-hidden="true">🧠</div>
+                    <div class="therapist-details">
+                        <h3 class="royal-font">Dr. Aisha</h3>
+                        <p id="aiStatus">Your GenZ Mental Health Buddy</p>
+                    </div>
+                    <div class="status-indicator">
+                        <div class="status-dot" aria-hidden="true"></div>
+                        <span>Online</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-label="Chat conversation">
+                    <!-- Initial message will be added by JavaScript -->
+                </div>
+                
+                <div class="typing-indicator" id="typingIndicator" aria-hidden="true">
+                    <div class="message-content">
+                        <span class="typing-text">Dr. Aisha is thinking</span>
+                        <div class="typing-dots">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input">
+                    <div class="input-container">
+                        <textarea 
+                            class="input-field" 
+                            id="messageInput" 
+                            placeholder="Jo bhi mind mein hai, share kar do... koi filter nahi chahiye 💭" 
+                            rows="1" 
+                            maxlength="1000"
+                            aria-label="Type your message here"
+                        ></textarea>
+                        <div class="input-actions">
+                            <div class="char-counter" id="charCounter" aria-live="polite">0/1000</div>
+                        </div>
+                    </div>
+                    <button class="send-button" id="sendButton" onclick="sendMessage()" aria-label="Send message" disabled>
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced typewriter with more meaningful phrases
+        const phrases = [
+            { text: "AI-Powered Mental Wellness", speed: 100, pause: 3000 },
+            { text: "Your Safe Space to Heal", speed: 90, pause: 2500 },
+            { text: "24/7 Compassionate Support", speed: 95, pause: 2800 },
+            { text: "Anxiety & Stress Relief", speed: 110, pause: 2400 },
+            { text: "GenZ Mental Health Buddy", speed: 85, pause: 2600 },
+            { text: "No Judgment Zone", speed: 105, pause: 2300 },
+            { text: "Real Talk, Real Help", speed: 95, pause: 2500 }
+        ];
+        
+        let currentPhraseIndex = 0;
+        let currentCharIndex = 0;
+        let isDeleting = false;
+        let typewriterElement = document.getElementById('typewriter');
+        
+        function typewriterEffect() {
+            const currentPhrase = phrases[currentPhraseIndex];
+            const typingSpeed = currentPhrase.speed || 100;
+            const pauseDuration = currentPhrase.pause || 2500;
+            
+            if (isDeleting) {
+                typewriterElement.textContent = currentPhrase.text.substring(0, currentCharIndex - 1);
+                currentCharIndex--;
+                
+                if (currentCharIndex === 0) {
+                    isDeleting = false;
+                    currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+                    setTimeout(typewriterEffect, 500);
+                    return;
+                }
+                
+                setTimeout(typewriterEffect, Math.max(30, typingSpeed * 0.3));
+            } else {
+                typewriterElement.textContent = currentPhrase.text.substring(0, currentCharIndex + 1);
+                currentCharIndex++;
+                
+                if (currentCharIndex === currentPhrase.text.length) {
+                    setTimeout(() => {
+                        isDeleting = true;
+                        typewriterEffect();
+                    }, pauseDuration);
+                    return;
+                }
+                
+                let currentSpeed = typingSpeed + (Math.random() - 0.5) * 30;
+                setTimeout(typewriterEffect, Math.max(50, currentSpeed));
+            }
+        }
+        
+        setTimeout(typewriterEffect, 2000);
+
+        // Enhanced therapy interface
+        let isTyping = false;
+        let messageHistory = [];
+        
+        // Enhanced conversation context with detailed analysis
+        let conversationContext = {
+            sessionStart: new Date(),
+            messageCount: 0,
+            phase: 'introduction', // introduction, assessment, exploration, support, conclusion
+            detectedIssues: [],
+            emotionalState: 'neutral', // positive, neutral, negative, distressed
+            urgencyLevel: 'low', // low, medium, high, crisis
+            userProfile: {
+                age: null,
+                gender: null,
+                location: null,
+                mainConcerns: [],
+                triggers: [],
+                copingMechanisms: [],
+                supportSystem: null,
+                previousTherapy: null,
+                medication: null
+            },
+            conversationFlow: {
+                hasAskedOpenEnded: false,
+                hasUsedMCQ: false,
+                needsAssessment: true,
+                readyForAdvice: false,
+                mcqCount: 0,
+                lastMcqTopic: null
+            }
+        };
+
+        // Smart question bank for proactive therapy
+        const questionBank = {
+            iceBreakers: [
+                "Yo! 😊 Main Dr. Aisha hun, tumhara new GenZ therapist buddy! Kya haal hai? Aaj kaisi vibes aa rahi hain tumhe?",
+                "Hey there! 🌟 Dr. Aisha here - ready to vibe with you aur tumhari mental health journey mein help karna. Batao, mind mein kya chal raha hai aaj kal?",
+                "Sup yaar! ✨ Main Dr. Aisha - tumhari friendly neighborhood therapist! No cap, yahan bilkul safe space hai. Kya pareshan kar raha hai tumhe?",
+                "Hello beautiful soul! 💫 Dr. Aisha yahan present! Sach mein grateful hun ki tum yahan aaye ho. Dil mein kya baat hai? Share kar sakte ho freely!"
+            ],
+            
+            assessmentQuestions: [
+                {
+                    question: "Yaar, main tumhe better understand karna chahti hun. Kya main cheez hai jo tumhe sabse zyada affect kar rahi hai lately? 🤔",
+                    type: "mcq",
+                    options: [
+                        "Family pressure aur expectations",
+                        "Relationship problems ya loneliness", 
+                        "Career/studies ka stress aur future anxiety",
+                        "Apne confidence aur self-worth ke saath issues"
+                    ]
+                },
+                {
+                    question: "Batao yaar, jab tum stressed feel karte ho, tumhara body kaisa react karta hai? 💭",
+                    type: "mcq",
+                    options: [
+                        "Heart racing, sweating, panic attacks",
+                        "Headaches, muscle tension, fatigue",
+                        "Can't sleep, appetite changes, restless feel",
+                        "Mood swings, crying spells, numbness"
+                    ]
+                },
+                {
+                    question: "Support system ke baare mein batao - kiske saath comfortable feel karte ho share karne mein? 🤗",
+                    type: "mcq",
+                    options: [
+                        "Family ke saath openly baat kar sakta hun",
+                        "Friends circle mein koi close friend hai",
+                        "Online communities ya therapists prefer karta hun", 
+                        "Honestly, kisi ke saath comfortable nahi feel karta"
+                    ]
+                }
+            ],
+            
+            deepDiveQuestions: {
+                anxiety: [
+                    "Anxiety attacks kitni frequent aati hain? Kya specific triggers notice kiye hain? 🫂",
+                    "Social situations mein kaise feel karte ho? Kya overthinking zyada hoti hai? 💫"
+                ],
+                depression: [
+                    "Morning mein uthna aur daily routine maintain karna kaisa lag raha hai? 🌅",
+                    "Kya activities jo pehle enjoy karte the, ab unme interest kam ho gaya hai? 💙"
+                ],
+                family: [
+                    "Family dynamics kaisi hain? Kya generation gap feel karte ho understanding mein? 🏠",
+                    "Parents ki expectations vs tumhare dreams mein kya conflict hai? ⭐"
+                ],
+                relationships: [
+                    "Love life mein kya scene hai? Heartbreak hua hai recently ya attachment issues hain? 💕",
+                    "Friendships mein kya issues aa rahe hain? Trust issues ya toxic relationships? 🤝"
+                ],
+                career: [
+                    "Future plans clear hain ya confusion mein ho? Pressure feel kar rahe ho decide karne ka? 🎯",
+                    "Current studies/job satisfying hai ya something else passion hai tumhara? 📚"
+                ]
+            }
+        };
+
+        // Advanced AI response generator with Indian GenZ context
+        async function generateAIResponse(userMessage) {
+            const message = userMessage.toLowerCase();
+            
+            // Analyze user's emotional state and urgency
+            analyzeEmotionalState(message);
+            
+            // Update conversation context
+            updateConversationContext(userMessage);
+            
+            // Crisis detection - immediate priority
+            if (detectCrisisSignals(message)) {
+                return handleCrisisResponse();
+            }
+            
+            // Generate contextual response based on phase
+            switch (conversationContext.phase) {
+                case 'introduction':
+                    return generateIntroductionResponse(message);
+                case 'assessment':
+                    return generateAssessmentResponse(message);
+                case 'exploration':
+                    return generateExplorationResponse(message);
+                case 'support':
+                    return generateSupportResponse(message);
+                default:
+                    return generateContextualResponse(message);
+            }
+        }
+
+        function analyzeEmotionalState(message) {
+            // Crisis indicators
+            const crisisWords = ['suicide', 'kill myself', 'end it all', 'no point', 'mar jaana', 'zinda nahi rehna'];
+            
+            // Negative emotion indicators
+            const negativeWords = ['depressed', 'sad', 'hopeless', 'anxious', 'panic', 'scared', 'dukhi', 'pareshaan', 'ghabrahat'];
+            
+            // Positive emotion indicators  
+            const positiveWords = ['happy', 'good', 'better', 'excited', 'khush', 'achha'];
+            
+            if (crisisWords.some(word => message.includes(word))) {
+                conversationContext.urgencyLevel = 'crisis';
+                conversationContext.emotionalState = 'distressed';
+            } else if (negativeWords.some(word => message.includes(word))) {
+                conversationContext.emotionalState = 'negative';
+                conversationContext.urgencyLevel = 'medium';
+            } else if (positiveWords.some(word => message.includes(word))) {
+                conversationContext.emotionalState = 'positive';
+            }
+        }
+
+        function detectCrisisSignals(message) {
+            const crisisKeywords = [
+                'suicide', 'kill myself', 'end it all', 'no point living', 'mar jaana chahta',
+                'zinda nahi rehna', 'sab khatam', 'can\'t take it anymore', 'giving up'
+            ];
+            
+            return crisisKeywords.some(keyword => message.includes(keyword));
+        }
+
+        function handleCrisisResponse() {
+            conversationContext.urgencyLevel = 'crisis';
+            return `Yaar, main samaj sakti hun ki abhi tumhara pain bahut zyada hai, but please sun lo - tum akele nahi ho is mein. 🫂
+
+            **Immediate help ke liye:**
+            • Suicide Prevention Helpline: 9152987821
+            • AASRA: 022-27546669  
+            • Vandrevala Foundation: 9999666555
+
+            Tumhari life valuable hai, aur ye feelings temporary hain. Main yahan hun tumhare saath, but professional help bhi leni chahiye immediately. Kya koi trusted adult ya family member hai jiske saath right now baat kar sakte ho? 💙
+
+            Please promise me ki koi harmful step nahi loge. Let's work through this together, one step at a time. ✨`;
+        }
+
+        function generateIntroductionResponse(message) {
+            if (conversationContext.messageCount === 0) {
+                // First interaction - warm welcome
+                return questionBank.iceBreakers[Math.floor(Math.random() * questionBank.iceBreakers.length)];
+            } else if (conversationContext.messageCount <= 2) {
+                // Early rapport building with proactive questions
+                const responses = [
+                    `Main sun rahi hun tumhari baat, aur really appreciate kar rahi hun ki tum yahan share kar rahe ho. 💫 Batao, ye jo feel kar rahe ho - kab se start hua hai? Koi specific incident tha ya gradually build up hua hai?`,
+                    
+                    `Bilkul right place aaye ho yaar! 🌟 No judgment zone hai ye completely. Main curious hun - family aur friends ke saath in feelings ke baare mein baat kari hai kabhi? Ya ye pehli baar hai kisi se share kar rahe ho?`,
+                    
+                    `Thank you for being so brave and sharing with me! 🦋 Main tumhe better understand karna chahti hun - daily routine kaisi chal rahi hai? Sleep, appetite, energy levels mein koi changes notice kiye hain?`
+                ];
+                
+                conversationContext.phase = 'assessment';
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+            
+            return generateContextualResponse(message);
+        }
+
+        function generateAssessmentResponse(message) {
+            // Smart MCQ selection based on detected issues
+            if (!conversationContext.conversationFlow.hasUsedMCQ && conversationContext.messageCount >= 3) {
+                conversationContext.conversationFlow.hasUsedMCQ = true;
+                conversationContext.conversationFlow.mcqCount++;
+                
+                // Select appropriate assessment question
+                const assessmentQ = questionBank.assessmentQuestions[0];
+                return formatMCQResponse(assessmentQ.question, assessmentQ.options);
+            }
+            
+            // Follow-up based on detected issues
+            if (conversationContext.detectedIssues.length > 0) {
+                const primaryIssue = conversationContext.detectedIssues[0];
+                const followUpQuestions = questionBank.deepDiveQuestions[primaryIssue];
+                
+                if (followUpQuestions) {
+                    conversationContext.phase = 'exploration';
+                    return followUpQuestions[Math.floor(Math.random() * followUpQuestions.length)];
+                }
+            }
+            
+            // Default assessment responses
+            const defaultAssessment = [
+                `Main samaj rahi hun ki ye situation complex hai tumhare liye. 💙 Kya main practical steps suggest kar sakti hun jo tumhe immediately help kar sakte hain? Ya pehle aur detail mein discuss karna hai?`,
+                
+                `Tumhari honesty really appreciate kar rahi hun. 🌸 Batao, jab ye feelings peak pe hoti hain, tum kya karte ho cope karne ke liye? Koi healthy mechanisms hain ya unhealthy patterns ban gaye hain?`
+            ];
+            
+            return defaultAssessment[Math.floor(Math.random() * defaultAssessment.length)];
+        }
+
+        function generateExplorationResponse(message) {
+            // Deep dive into specific issues with empathy
+            const explorationResponses = [
+                `Wow, really insightful share kiya hai tumne. 💫 Main dekh sakti hun ki tumhe ye deeply affect kar raha hai. Kya tum ready ho kuch practical coping strategies try karne ke liye, ya abhi aur vent out karna chahte ho?`,
+                
+                `That makes total sense yaar, aur tumhara reaction completely valid hai. 🤗 Aise situations mein self-compassion practice karna important hai. Kya tum apne saath kind ho ya zyada self-critical ban jate ho?`,
+                
+                `Main feel kar sakti hun ki ye tumhare liye emotionally draining hai. 💙 Let's work on some immediate relief techniques. Breathing exercises try kiye hain kabhi, ya koi creative outlets use karte ho stress release ke liye?`
+            ];
+            
+            conversationContext.phase = 'support';
+            return explorationResponses[Math.floor(Math.random() * explorationResponses.length)];
+        }
+
+        function generateSupportResponse(message) {
+            // Provide practical, culturally relevant advice
+            const supportResponses = [
+                `Yaar, tumne jo progress kiya hai conversation mein - that's already a huge step! 🌟 Main tumhe kuch practical tools dena chahti hun:
+
+                **Immediate Relief ke liye:**
+                • 4-7-8 breathing technique try karo
+                • Journaling start karo - thoughts ko paper pe likhna helps
+                • Physical activity - walking, dancing, anything jo tumhe pasand hai
+                
+                Kya inme se koi resonates karta hai tumhare saath? ✨`,
+                
+                `Tumhari self-awareness really impressive hai! 💫 Let's work on building your support system:
+                
+                **Action Steps:**
+                • Ek trusted friend/family member ko gradually open up karo
+                • Mental health apps try karo (Wysa, MindPeace)
+                • Community groups join karo - online ya offline
+                
+                Kya lagta hai - kiska saath comfortable feel karoge? 🤝`,
+                
+                `Beautiful insights share kiye hain tumne! 🦋 Here's your personalized wellness plan:
+                
+                **Daily Practice:**
+                • Morning gratitude (3 things jo appreciate karte ho)
+                • Midday check-in with emotions
+                • Evening reflection aur self-care
+                
+                Small steps, big impact! Ready to try for ek week? 💪`
+            ];
+            
+            return supportResponses[Math.floor(Math.random() * supportResponses.length)];
+        }
+
+        function generateContextualResponse(message) {
+            // Contextual responses based on detected themes
+            const contextualMap = {
+                anxiety: [
+                    `Anxiety ka experience really overwhelming hota hai yaar. 🫂 Main samaj sakti hun ki control karna mushkil lagta hai. Kya grounding techniques try kari hain? 5-4-3-2-1 method really helpful hai - 5 things dekho, 4 touch karo, 3 sounds suno... try karna chahoge?`,
+                    
+                    `Ghabrahat aur overthinking se deal karna tough hai, but you're not alone in this! 💙 Kya physical symptoms bhi aate hain jaise heart racing? Let's work on some breathing techniques jo immediately help kar sakte hain.`
+                ],
+                
+                depression: [
+                    `Ye heavy feeling jo describe kar rahe ho - that takes courage to share. 🌸 Depression mein energy kam hona normal hai. Small wins celebrate karna important hai. Aaj koi ek small thing kiya jo proud feel kara ho?`,
+                    
+                    `Mood low hona especially hard hai when everyone expects you to be "normal." 💫 Tumhara pace tumhara hai, comparison mat karo others se. Kya activities hain jo little spark of joy deti hain? Even tiny moments count!`
+                ],
+                
+                family: [
+                    `Indian families mein mental health discuss karna still taboo hai unfortunately. 🏠 Tumhari feelings valid hain even if they don't understand. Kya gradually educate kar sakte ho unhe, ya boundaries set karna better option hai?`,
+                    
+                    `Generation gap real struggle hai yaar! 💫 Parents ki expectations vs. apne dreams - ye conflict bahut common hai. Remember, unki love language different hai but that doesn't invalidate your feelings. Kaise approach karoge conversation?`
+                ],
+                
+                relationships: [
+                    `Dil ke mamle mein pain different level ka hota hai. 💕 Whether it's heartbreak ya toxic patterns - tumhari healing priority hai. Kya self-love practice karte ho? Red flags identify karna seekha hai?`,
+                    
+                    `Relationships mein boundaries set karna is an art yaar! 🤝 People pleasing band karna tough hai but necessary. Kya tum apni needs clearly communicate kar paate ho ya uncomfortable feel karte ho?`
+                ],
+                
+                career: [
+                    `Career confusion at this age is SO normal yaar! 🎯 Peer pressure aur societal expectations heavy feel kar sakte hain. Tumhara passion kya hai? Money vs. fulfillment ka balance kaise maintain karoge?`,
+                    
+                    `Academic pressure real deal hai, especially in competitive environment. 📚 Success define karna your way important hai. Kya practical steps le sakte ho to reduce stress while staying focused on goals?`
+                ]
+            };
+            
+            // Find the most relevant issue
+            for (const issue of conversationContext.detectedIssues) {
+                if (contextualMap[issue]) {
+                    return contextualMap[issue][Math.floor(Math.random() * contextualMap[issue].length)];
+                }
+            }
+            
+            // Default empathetic responses
+            const defaultResponses = [
+                `Tumhari honesty aur vulnerability really appreciate kar rahi hun. 💙 Ye share karna easy nahi hota. Main yahan hun tumhare saath is journey mein. Kya aur koi specific area hai jiske baare mein baat karni hai?`,
+                
+                `That's a really important point tumne raise kiya hai. 🌟 Main dekh sakti hun ki tumne ye deeply socha hai. Sometimes external perspective helpful hoti hai - kya main koi suggestions de sakti hun ya pehle aur explore karna hai?`,
+                
+                `Wow, tumhara self-awareness impressive hai yaar! ✨ Ye insights jo share kar rahe ho show karte hain ki tum already healing ke path pe ho. Kya next steps clear hain ya still figuring out kar rahe ho?`
+            ];
+            
+            return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+        }
+
+        function formatMCQResponse(question, options) {
+            let response = question + "\n\n";
+            const letters = ['A', 'B', 'C', 'D'];
+            
+            options.forEach((option, index) => {
+                response += `${letters[index]}) ${option}\n`;
+            });
+            
+            response += "\nKoi ek option choose karo ya jo letter sahi lage wo type kar do! 💫";
+            return response;
+        }
+
+        function updateConversationContext(userMessage) {
+            const message = userMessage.toLowerCase();
+            
+            // Enhanced issue detection with Hindi/Hinglish terms
+            const issueDetectors = {
+                anxiety: ['anxious', 'anxiety', 'panic', 'worried', 'ghabrahat', 'dar', 'nervous', 'overthink', 'restless', 'pareshan'],
+                depression: ['depressed', 'sad', 'down', 'hopeless', 'dukhi', 'udaas', 'mood off', 'empty', 'numb', 'worthless'],
+                stress: ['stressed', 'overwhelmed', 'pressure', 'tension', 'pareshaan', 'load', 'burden', 'exhausted'],
+                family: ['family', 'parents', 'mom', 'dad', 'ghar', 'mummy', 'papa', 'relatives', 'fights', 'expectations'],
+                relationships: ['boyfriend', 'girlfriend', 'relationship', 'breakup', 'dil toota', 'love', 'crush', 'ex', 'dating', 'lonely'],
+                career: ['college', 'studies', 'exam', 'marks', 'padhai', 'career', 'job', 'future', 'competition', 'placement']
+            };
+            
+            // Detect and add new issues
+            for (const [issue, keywords] of Object.entries(issueDetectors)) {
+                if (keywords.some(keyword => message.includes(keyword))) {
+                    if (!conversationContext.detectedIssues.includes(issue)) {
+                        conversationContext.detectedIssues.push(issue);
+                    }
+                }
+            }
+            
+            // Update conversation phase based on message count and engagement
+            if (conversationContext.messageCount <= 3) {
+                conversationContext.phase = 'introduction';
+            } else if (conversationContext.messageCount <= 8 && !conversationContext.conversationFlow.readyForAdvice) {
+                conversationContext.phase = 'assessment';
+            } else if (conversationContext.detectedIssues.length > 0 && !conversationContext.conversationFlow.readyForAdvice) {
+                conversationContext.phase = 'exploration';
+            } else {
+                conversationContext.phase = 'support';
+                conversationContext.conversationFlow.readyForAdvice = true;
+            }
+            
+            // Increment message count
+            conversationContext.messageCount++;
+        }
+
+        function formatTimestamp(date) {
+            return new Intl.DateTimeFormat('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            }).format(date);
+        }
+
+        function startTherapy() {
+            document.getElementById('landingPage').style.display = 'none';
+            document.getElementById('therapyPage').style.display = 'block';
+            
+            // Add initial AI message
+            setTimeout(() => {
+                const initialMessage = questionBank.iceBreakers[0];
+                addMessage(initialMessage, false);
+                messageHistory.push({ role: 'assistant', content: initialMessage, timestamp: new Date() });
+            }, 500);
+            
+            setTimeout(() => {
+                document.getElementById('messageInput').focus();
+            }, 800);
+            
+            trackSessionStart();
+        }
+
+        function goBack() {
+            if (confirm('Kya sure ho ki session end karna hai? Privacy ke liye conversation save nahi hogi.')) {
+                document.getElementById('therapyPage').style.display = 'none';
+                document.getElementById('landingPage').style.display = 'block';
+                
+                // Reset everything
+                const chatMessages = document.getElementById('chatMessages');
+                chatMessages.innerHTML = '';
+                
+                messageHistory = [];
+                conversationContext = {
+                    sessionStart: new Date(),
+                    messageCount: 0,
+                    phase: 'introduction',
+                    detectedIssues: [],
+                    emotionalState: 'neutral',
+                    urgencyLevel: 'low',
+                    userProfile: {
+                        age: null,
+                        gender: null,
+                        location: null,
+                        mainConcerns: [],
+                        triggers: [],
+                        copingMechanisms: [],
+                        supportSystem: null,
+                        previousTherapy: null,
+                        medication: null
+                    },
+                    conversationFlow: {
+                        hasAskedOpenEnded: false,
+                        hasUsedMCQ: false,
+                        needsAssessment: true,
+                        readyForAdvice: false,
+                        mcqCount: 0,
+                        lastMcqTopic: null
+                    }
+                };
+                trackSessionEnd();
+            }
+        }
+
+        function showTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            const aiStatus = document.getElementById('aiStatus');
+            
+            typingIndicator.style.display = 'flex';
+            
+            const thinkingTexts = [
+                'Soch rahi hun aapke baare mein...',
+                'Tumhari feelings ko samaj rahi hun...',
+                'Best response prepare kar rahi hun...',
+                'Empathy mode ON kar rahi hun...'
+            ];
+            
+            aiStatus.textContent = thinkingTexts[Math.floor(Math.random() * thinkingTexts.length)];
+            scrollToBottom();
+        }
+
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            const aiStatus = document.getElementById('aiStatus');
+            
+            typingIndicator.style.display = 'none';
+            aiStatus.textContent = 'Your GenZ Mental Health Buddy';
+        }
+
+        function scrollToBottom() {
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            const sendButton = document.getElementById('sendButton');
+            
+            if (message && !isTyping) {
+                isTyping = true;
+                sendButton.disabled = true;
+                
+                addMessage(message, true);
+                messageHistory.push({ role: 'user', content: message, timestamp: new Date() });
+                
+                input.value = '';
+                input.style.height = 'auto';
+                updateCharCounter();
+                
+                showTypingIndicator();
+                
+                try {
+                    const response = await generateAIResponse(message);
+                    
+                    // Dynamic delay based on response complexity
+                    const baseDelay = 1500;
+                    const complexityDelay = response.length * 25;
+                    const emotionalDelay = conversationContext.urgencyLevel === 'crisis' ? 500 : 
+                                         conversationContext.emotionalState === 'negative' ? 800 : 0;
+                    const totalDelay = Math.min(baseDelay + complexityDelay + emotionalDelay, 7000);
+                    
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        addMessage(response, false);
+                        messageHistory.push({ role: 'assistant', content: response, timestamp: new Date() });
+                        
+                        isTyping = false;
+                        sendButton.disabled = false;
+                        input.focus();
+                    }, totalDelay);
+                } catch (error) {
+                    console.error('Error generating response:', error);
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        addMessage("Arre yaar, thoda technical glitch ho gaya! 😅 Main yahan hun aur tumhari help definitely karungi. Ek baar phir try karo? 💫", false);
+                        
+                        isTyping = false;
+                        sendButton.disabled = false;
+                        input.focus();
+                    }, 2000);
+                }
+            }
+        }
+
+        function addMessage(text, isUser) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'message-user' : 'message-ai'}`;
+            
+            const timestamp = formatTimestamp(new Date());
+            
+            // Check if message contains MCQ format
+            if (!isUser && text.includes('A)') && text.includes('B)') && text.includes('choose karo')) {
+                messageDiv.innerHTML = `
+                    <div class="message-content mcq-message">
+                        ${formatMCQMessage(text)}
+                    </div>
+                    <div class="message-timestamp">${timestamp}</div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="message-content">${formatMessage(text)}</div>
+                    <div class="message-timestamp">${timestamp}</div>
+                `;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function formatMessage(text) {
+            return text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\n/g, '<br>')
+                .replace(/•/g, '•'); // Preserve bullet points
+        }
+
+        function formatMCQMessage(text) {
+            const parts = text.split('\n\n');
+            const questionPart = parts[0].trim();
+            const optionsPart = parts[1] || '';
+            const instructionPart = parts[2] || '';
+            
+            let formattedMessage = `<div class="mcq-question">${formatMessage(questionPart)}</div>`;
+            
+            if (optionsPart) {
+                const options = optionsPart.split('\n').filter(opt => opt.trim());
+                formattedMessage += '<div class="mcq-options">';
+                
+                options.forEach(option => {
+                    const trimmedOption = option.trim();
+                    if (trimmedOption && /^[A-D]\)/.test(trimmedOption)) {
+                        const letter = trimmedOption.charAt(0);
+                        const content = trimmedOption.substring(2).trim();
+                        formattedMessage += `
+                            <button class="mcq-option" onclick="selectMCQOption('${letter}', '${content.replace(/'/g, "\\'")}')">
+                                <span class="option-letter">${letter}</span>
+                                <span class="option-text">${content}</span>
+                            </button>
+                        `;
+                    }
+                });
+                formattedMessage += '</div>';
+            }
+            
+            if (instructionPart) {
+                formattedMessage += `<div class="mcq-instruction">${formatMessage(instructionPart)}</div>`;
+            }
+            
+            return formattedMessage;
+        }
+
+        function selectMCQOption(letter, content) {
+            const input = document.getElementById('messageInput');
+            input.value = `${letter}) ${content}`;
+            
+            // Disable all MCQ buttons
+            const mcqButtons = document.querySelectorAll('.mcq-option');
+            mcqButtons.forEach(btn => {
+                btn.disabled = true;
+                if (btn.onclick.toString().includes(letter)) {
+                    btn.classList.add('selected');
+                }
+            });
+            
+            // Auto-send after selection
+            setTimeout(() => {
+                sendMessage();
+            }, 500);
+        }
+
+        function updateCharCounter() {
+            const input = document.getElementById('messageInput');
+            const counter = document.getElementById('charCounter');
+            const sendButton = document.getElementById('sendButton');
+            const currentLength = input.value.length;
+            const maxLength = input.maxLength;
+            
+            counter.textContent = `${currentLength}/${maxLength}`;
+            
+            counter.classList.remove('warning', 'error');
+            if (currentLength > maxLength * 0.9) {
+                counter.classList.add('error');
+            } else if (currentLength > maxLength * 0.75) {
+                counter.classList.add('warning');
+            }
+            
+            if (currentLength > 0) {
+                counter.classList.add('visible');
+            } else {
+                counter.classList.remove('visible');
+            }
+            
+            sendButton.disabled = currentLength === 0 || isTyping;
+        }
+
+        // Enhanced textarea functionality
+        const textarea = document.getElementById('messageInput');
+        
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            const maxHeight = window.innerWidth <= 768 ? 100 : 120;
+            const newHeight = Math.min(this.scrollHeight, maxHeight);
+            this.style.height = newHeight + 'px';
+            
+            updateCharCounter();
+            
+            if (window.innerWidth <= 768) {
+                setTimeout(scrollToBottom, 0);
+            }
+        });
+
+        textarea.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                if (!e.ctrlKey && !e.metaKey) {
+                    sendMessage();
+                }
+            }
+        });
+
+        // Session tracking
+        function trackSessionStart() {
+            const sessionData = {
+                startTime: new Date().toISOString(),
+                userAgent: navigator.userAgent.includes('Mobile') ? 'mobile' : 'desktop',
+                timestamp: Date.now()
+            };
+            console.log('Therapy session started:', sessionData);
+        }
+
+        function trackSessionEnd() {
+            const sessionData = {
+                endTime: new Date().toISOString(),
+                messageCount: messageHistory.length,
+                detectedIssues: conversationContext.detectedIssues,
+                sessionDuration: new Date() - conversationContext.sessionStart,
+                emotionalJourney: conversationContext.emotionalState,
+                phase: conversationContext.phase
+            };
+            console.log('Therapy session ended:', sessionData);
+        }
+
+        // Event listeners and initialization
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.activeElement !== textarea) {
+                if (document.getElementById('therapyPage').style.display !== 'none') {
+                    goBack();
+                }
+            }
+        });
+
+        // Enhanced mobile optimization and viewport handling
+        function setViewportHeight() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+
+        function optimizeForMobile() {
+            if (window.innerWidth <= 768) {
+                // Prevent zoom on iOS when focusing input
+                const input = document.getElementById('messageInput');
+                input.addEventListener('focus', function() {
+                    document.body.style.transform = 'scale(1)';
+                });
+                
+                // Improve scroll behavior on mobile
+                const chatMessages = document.getElementById('chatMessages');
+                chatMessages.style.overscrollBehavior = 'contain';
+                
+                // Add touch feedback
+                const buttons = document.querySelectorAll('button, .mcq-option');
+                buttons.forEach(button => {
+                    button.addEventListener('touchstart', function() {
+                        this.style.transform = 'scale(0.98)';
+                    });
+                    button.addEventListener('touchend', function() {
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 150);
+                    });
+                });
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            setViewportHeight();
+            optimizeForMobile();
+        });
+        
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                setViewportHeight();
+                optimizeForMobile();
+                scrollToBottom();
+            }, 100);
+        });
+        
+        // Initialize mobile optimizations
+        setViewportHeight();
+        optimizeForMobile();
+        updateCharCounter();
+
+        // Privacy reminder
+        window.addEventListener('beforeunload', function(e) {
+            if (messageHistory.length > 1) {
+                const message = 'Tumhara conversation privacy ke liye save nahi hoga. Sure hai exit karna hai?';
+                e.returnValue = message;
+                return message;
+            }
+        });
+
+        // Additional mobile-specific improvements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prevent double-tap zoom on buttons
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                });
+            });
+            
+            // Improve input experience on mobile
+            const input = document.getElementById('messageInput');
+            if (input) {
+                // Prevent zoom on focus for mobile devices
+                input.addEventListener('touchstart', function() {
+                    if (window.innerWidth <= 768) {
+                        input.style.fontSize = '16px';
+                    }
+                });
+                
+                // Better keyboard handling
+                input.addEventListener('blur', function() {
+                    if (window.innerWidth <= 768) {
+                        setTimeout(() => {
+                            window.scrollTo(0, 0);
+                            document.body.scrollTop = 0;
+                        }, 100);
+                    }
+                });
+            }
+        });
+
+        // Enhanced error handling and connection monitoring
+        function handleConnectionError() {
+            addMessage("Connection issue ho gaya hai yaar. Main phir se try kar rahi hun... Tumhari privacy safe hai, koi worry nahi!", false);
+        }
+
+        // Monitor online status
+        window.addEventListener('online', function() {
+            const aiStatus = document.getElementById('aiStatus');
+            aiStatus.textContent = 'Back online - Ready to help!';
+            setTimeout(() => {
+                aiStatus.textContent = 'Your GenZ Mental Health Buddy';
+            }, 3000);
+        });
+
+        window.addEventListener('offline', function() {
+            const aiStatus = document.getElementById('aiStatus');
+            aiStatus.textContent = 'Connection lost - Trying to reconnect...';
+        });
+    </script>
+</body>
+</html>
